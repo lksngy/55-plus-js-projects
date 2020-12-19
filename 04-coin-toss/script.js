@@ -10,7 +10,7 @@ let computerSelect = document.querySelector('.computerSelect');
 let winner = document.querySelector('.winner');
 let gameStats = document.querySelector('.gameStats');
 let buttonHeads = document.querySelector('.Heads');
-let buttonTais = document.querySelector('.Tails');
+let buttonTails = document.querySelector('.Tails');
 
 const coinArray = ['Heads', 'Tails'];
 let pointsPlayer = 0;
@@ -19,7 +19,10 @@ let computerChoice;
 let myChoice;
 let win;
 
-let newGame = buttonHeads.addEventListener('click', function (){
+
+
+function newGame (){
+    
     computerChoice = Math.floor(Math.random() * coinArray.length);
     myChoice = Math.floor(Math.random() * coinArray.length);
     if (myChoice === computerChoice) {
@@ -37,7 +40,8 @@ let newGame = buttonHeads.addEventListener('click', function (){
     winner.innerHTML = `${win} wins last game`;
     gameStats.innerHTML = `Current game stats: player: ${pointsPlayer} computer: ${pointsComputer}`;
 
-})
+}
 
-
+buttonHeads.addEventListener('click', newGame);
+buttonTails.addEventListener('click', newGame);
 
