@@ -9,8 +9,10 @@
 let computerSelect = document.querySelector('.computerSelect');
 let winner = document.querySelector('.winner');
 let gameStats = document.querySelector('.gameStats');
-let buttonHeads = document.querySelector('.Heads');
-let buttonTails = document.querySelector('.Tails');
+// let buttonHeads = document.querySelector('.Heads');
+// let buttonTails = document.querySelector('.Tails');
+let buttons = document.querySelectorAll('button');
+console.log(buttons);
 
 const coinArray = ['Heads', 'Tails'];
 let pointsPlayer = 0;
@@ -20,11 +22,25 @@ let myChoice;
 let win;
 
 
+// buttonHeads.addEventListener('click', newGame);
+// buttonTails.addEventListener('click', newGame);
 
-function newGame (){
+for (let i = 0; i < coinArray.length; i++) {
+    buttons[i].addEventListener('click', newGame);
+}
+
+
+function newGame (butt){
     
+    if (butt.target.innerHTML == 'Heads') {
+        console.log('you clicked Heads');
+        myChoice = 0;
+    } else {
+        console.log('you clicked Tails');
+        myChoice = 1;
+    }
     computerChoice = Math.floor(Math.random() * coinArray.length);
-    myChoice = Math.floor(Math.random() * coinArray.length);
+    // myChoice = Math.floor(Math.random() * coinArray.length); //used to get random number, now getting from the click button
     if (myChoice === computerChoice) {
         pointsPlayer++;
         win = 'Player';
@@ -32,8 +48,8 @@ function newGame (){
         pointsComputer++;
         win = 'Computer';
     }
-    console.log(computerChoice);
-    console.log(myChoice);
+    console.log(`computer: ${computerChoice}`);
+    console.log(`me: ${myChoice}`);
     console.log(`current game stats: player: ${pointsPlayer} computer: ${pointsComputer}`);
 
     computerSelect.innerHTML = `Computer selected ${coinArray[computerChoice]}`;
@@ -41,7 +57,3 @@ function newGame (){
     gameStats.innerHTML = `Current game stats: player: ${pointsPlayer} computer: ${pointsComputer}`;
 
 }
-
-buttonHeads.addEventListener('click', newGame);
-buttonTails.addEventListener('click', newGame);
-
