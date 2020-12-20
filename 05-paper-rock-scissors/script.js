@@ -1,4 +1,7 @@
-// this game could be much simplifyed by using ES6!
+// this game could be much simplified by using ES6
+// This can be much simplified and shortened just by using ES6 and
+//refactoring. I will get back to it later once I'm more skilled to
+// train ES6 and algorithms.
 
 //query selectors
 let gameStats = document.querySelector('.gameStats');
@@ -90,3 +93,6 @@ function playGame (butt) {
 
 
 // change innerHTML for gameStats, gameSelect and winner
+
+let rolls = [roll(5), roll(5)];
+console.log(rolls);
