@@ -7,6 +7,8 @@ makeSound[i].addEventListener('click', function(){
     let choice = makeSound[i].innerHTML.toLowerCase();
     playSound(choice);
     
+
+    
 });
 }
 
