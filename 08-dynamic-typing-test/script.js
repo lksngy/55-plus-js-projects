@@ -50,9 +50,9 @@ function statistics (text) {
     console.log(text.split(' '));
     let sourceArr = text.split(' ')
     let resultArr = result.innerHTML.split(' ');
-    compare(sourceArr, resultArr);
+    let compared = compare(sourceArr, resultArr);
     stats.innerHTML = `Statistics: Your speed of writing is ${wordSpeed} words per minute.`;
-    
+    console.log(compared.rightWords, compared.wrongWords); //way to use more than just one returned value from the function
     
 }
 
@@ -69,7 +69,13 @@ function compare (sour, resu) {
     }
     console.log(rightWords, wrongWords);
     comp.innerHTML = `Comparison: You wrote ${rightWords} correctly compared to ${wrongWords} incorrect.`;
+    return {rightWords, wrongWords}; /*you can return more than just one value from the function this way by
+    returning an object or by returning an array. Then you can use them as shown in the 'statictics' function
+    where this function 'compare' was called and return used. Don't forget you have save the called function
+    into variable => here in 'compared' so you can work with it.
+ */
 }
+
 
 function playGame () {
     let randomSentence = Math.floor(Math.random() * wording.length);
