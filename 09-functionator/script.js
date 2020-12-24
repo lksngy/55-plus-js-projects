@@ -1,6 +1,8 @@
-console.log('test');
+// all coded in javascript as we want to learn JS, not CSS now...
 
 let addBlock;
+let myFunctionList;
+let funList = [];
 
 document.addEventListener('DOMContentLoaded', function (){
     console.log('ready');
@@ -16,49 +18,101 @@ document.addEventListener('DOMContentLoaded', function (){
     addBlock.style.top = '100px';
     addBlock.style.left = '150px';
     document.body.appendChild(addBlock);
+    myFunctionList = document.createElement('div');
+    document.body.appendChild(myFunctionList);
     
 })
 
-function goUp(){
-    let temp = addBlock.offsetTop;
-    temp = temp - 50;
-    addBlock.style.top = temp + 'px';
+function addFun (val) {
+    
+    console.log(val);
+    console.log(funList)
+    let span = document.createElement('span');
+    span.textContent = '+' + val;
+    span.style.padding = '10px';
+    span.addEventListener('mouseover', function(){
+        this.style.backgroundColor = 'red';
+        this.style.color = 'white';
+    })
+    span.addEventListener('mouseout', function () {
+        this.style.backgroundColor = 'white';
+        this.style.color = 'black';
+    })
+    myFunctionList.appendChild(span);
+    funList.push(span);
+    span.addEventListener('click', function () {
+        let curIndex = funList.indexOf(this);
+        let tempRemove = funList.splice(curIndex, 1);
+        myFunctionList.removeChild(this);
+    })
+
 }
 
-function goDown(){
-    let temp = addBlock.offsetTop;
-    temp = temp + 50;
-    addBlock.style.top = temp + 'px';
-}
+// function goUp(){
+//     let temp = addBlock.offsetTop;
+//     temp = temp - 50;
+//     addBlock.style.top = temp + 'px';
+// }
 
-function goLeft(){
-    let temp = addBlock.offsetLeft;
-    temp = temp - 50;
-    addBlock.style.left = temp + 'px';
-}
+// function goDown(){
+//     let temp = addBlock.offsetTop;
+//     temp = temp + 50;
+//     addBlock.style.top = temp + 'px';
+// }
 
-function goRight(){
-    let temp = addBlock.offsetLeft;
-    temp = temp + 50;
-    addBlock.style.left = temp + 'px';
+// function goLeft(){
+//     let temp = addBlock.offsetLeft;
+//     temp = temp - 50;
+//     addBlock.style.left = temp + 'px';
+// }
+
+// function goRight(){
+//     let temp = addBlock.offsetLeft;
+//     temp = temp + 50;
+//     addBlock.style.left = temp + 'px';
+// }
+
+function mover () {
+    if (funList.length > 0) {
+        let cur = addBlock.getBoundingClientRect();
+        console.log(cur);
+        let el = funList.shift();
+        let item = el.textContent.replace('+', '');
+        console.log(item);
+        myFunctionList.removeChild(el);
+        addBlock.innerHTML = 'Move' + item;
+        if (item === 'Left') {
+            addBlock.style.left = cur.left - cur.width + 'px';
+        } else if (item === 'Right') {
+            addBlock.style.left = cur.left + cur.width + 'px';
+        } else if (item === 'Up') {
+            addBlock.style.top = cur.top - cur.height + 'px';
+        } else if (item === 'Down') {
+            addBlock.style.top = cur.top + cur.height + 'px';
+        } else {
+            console.log('something went wrong with movement');
+        }
+    }
 }
 
 window.addEventListener('keydown', function(e){
     let key = e.key;
-    console.log(e);
-    console.log(e.key + ' = ' + e.keyCode);
+    //console.log(e);
+    //console.log(e.key + ' = ' + e.keyCode);
     switch (e.keyCode) {
         case 37:
-            goLeft();
+            addFun('Left');
             break;
         case 38:
-            goUp();
+            addFun('Up');
             break;
         case 39:
-            goRight();
+            addFun('Right');
             break;
         case 40:
-            goDown();
+            addFun('Down');
             break;
-    }
+        case 13:
+            mover();
+            }
 });
