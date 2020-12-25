@@ -1,0 +1,32 @@
+.cont {
+    width: 400px;
+    background-color: rgb(187, 187, 187);
+    padding: 15px;
+    text-align: center;
+}
+
+.list {
+    background-color: rgb(231, 231, 231);
+    text-align: left;
+}
+
+.list:hover {
+    background-color: rgb(215, 215, 215);
+}
+
+.listed {
+    display: none;
+}
+.men {
+    cursor: pointer;
+    margin-top: 10px;
+
+}
+
+.men:hover {
+    background-color: hotpink;
+}
+
+.show {
+    display: block;
+}
