@@ -9,39 +9,62 @@
 let button = document.querySelector('button');
 let instructions = document.querySelector('.instructions');
 let gameArea = document.querySelector('.gameArea');
-let numArray = [];
+let gamePlay = false;
 
 button.addEventListener('click', guess);
 
 function guess () {
-    numArray = [];
-    gameArea.innerHTML = '';
-    console.log('clicked!');
-    randomNum();
-    button.innerHTML = 'check values';
-    
+    if (!gamePlay) {
+        gamePlay = true;
+        score = 0;
+        gameMaker();
+        button.innerHTML = 'check values';
+    } else {
+        const numbers = document.querySelectorAll('.number');
+        score++;
+        instructions.innerHTML = `You have already tried to guess ${score} times.`;
+        let winCondition = 0;
+        for (let i = 0; i < numbers.length; i++) {
+            if(numbers[i].value == numbers[i].correct) { //only double == bacause we are comparing number and string. OK for now.
+                numbers[i].style.backgroundColor = 'green';
+                numbers[i].style.color = 'white';
+                winCondition++;
+            } else {
+                let color = (numbers[i].value < numbers[i].correct) ? 'blue' : 'red';
+                numbers[i].style.backgroundColor = color;
+                numbers[i].style.color = 'black';
+            }
+            if(winCondition === numbers.length) {
+                console.log('game over');
+                gameEND();
+            }
+        }
+
+    }
 }
 
-function randomNum () {
-    result();
+function gameMaker (){
     let amountOfNum = 6;
     let highestNum = 9;
-    for (i = 0; i < amountOfNum; i++) {
-        let num = Math.floor(Math.random() * highestNum);
-        numArray.push(num);
-        let add = document.createElement('div');
-        gameArea.appendChild(add);
+    for (i = 0; i < amountOfNum; i++) {    
+    let add = document.createElement('input');
+        add.setAttribute('type', 'number');
+        add.max = 9;
+        add.min = 0;
+        add.size = 1;
+        add.order = 0;
+        add.style.width = '60px';
         add.classList.add('number');
-        add.innerHTML = num;
-        //css
-        //value from num
+        add.value = 0;
+        add.correct = Math.floor(Math.random() * highestNum);
+        //add.value = add.correct;
+        //console.log(add.correct);
+        gameArea.appendChild(add);
     }
-    console.log(numArray);
-    
 }
 
-function result () {
-    
-    console.log('right combination!');
+function gameEND (){
+    instructions.innerHTML = `You finished the game on ${score}th guess.`;
+    button.innerHTML = 'start over';
+    gamePlay = false;
 }
-//randomNum();
