@@ -16,6 +16,7 @@ button.addEventListener('click', guess);
 function guess () {
     if (!gamePlay) {
         gamePlay = true;
+        gameArea.innerHTML = '';
         score = 0;
         gameMaker();
         button.innerHTML = 'check values';
@@ -44,7 +45,7 @@ function guess () {
 }
 
 function gameMaker (){
-    let amountOfNum = 6;
+    let amountOfNum = 4;
     let highestNum = 9;
     for (i = 0; i < amountOfNum; i++) {    
     let add = document.createElement('input');
