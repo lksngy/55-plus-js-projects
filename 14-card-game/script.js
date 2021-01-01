@@ -28,22 +28,38 @@ function playGame (e) {
     //console.log(e.target);
     let temp = e.target.innerText;
     let myCard = drawCard();
-    console.log(temp);
+    let win;
+    //console.log(temp);
     if (temp == 'Start') {
         console.log('You started the game');
         message.innerHTML = 'Higher or lower';
-        gameplay.innerHTML = `${myCard.rank} ${myCard.suit}`;
+        gameplay.innerHTML = '';
         makeCard(myCard);
         toggleButtons();
+        return;
     }
+    if(myCard.value === curCardValue) {
+        win = 'draw';
+        message.innerHTML = 'Draw';
+    }else {
+        if ((temp == 'Higher' && (myCard.value > curCardValue)) || (temp == 'Lover' && (myCard.value< curCardValue))) {
+            scoreValue++;
+            score.innerHTML = scoreValue;
+            message.innerHTML = 'Correct, Next?';
+        } else {
+            message.innerHTML = 'Wrong Game Over';
+            toggleButtons();
+        }
+    }
+    makeCard(myCard);
 }
 
 function drawCard () {
     if(deck.length > 0) {
         let randomIndex = Math.floor(Math.random() * deck.length);
-        console.log(randomIndex);
+        //console.log(randomIndex);
         let card = deck.splice(randomIndex, 1)[0];
-        console.log(card);
+        //console.log(card);
         return card;
     } else {
         makeDeck();
@@ -68,8 +84,26 @@ function makeDeck (){
 }
 
 function makeCard (card) {
-    console.log(card);
-    console.log(card.rank);
-    console.log(card.suit);
-    console.log(card.value);
+    let visual = card.rank + '<br>&' + card.suit + ';';
+    let visual2 = card.rank + '&' + card.suit + ';';
+    let curCards = document.querySelectorAll('.card');
+    let div = document.createElement('div');
+    div.setAttribute('class', 'card');
+    div.style.left = (curCards.length * 25) + 'px';
+    curCardValue = card.value;
+    if (card.suit === 'hearts' || card.suit === 'diams') {
+        div.classList.add('red');
+    }
+
+    let span1 = document.createElement('span');
+    span1.setAttribute('class', 'tiny');
+    span1.innerHTML = visual2;
+    div.appendChild(span1);
+
+    let span2 = document.createElement('span');
+    span2.setAttribute('class', 'big');
+    span2.innerHTML = visual;
+    div.appendChild(span2);
+
+    gameplay.appendChild(div);
 }
