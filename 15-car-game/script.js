@@ -6,6 +6,7 @@ const gameArea = document.querySelector('.gameArea');
 const test = document.querySelector('.test');
 const player = {};
 player.speed = 5;
+player.score = 0;
 
 let keys = {
     ArrowUp: false,
@@ -22,7 +23,7 @@ function playGame () {
     let car = document.querySelector('.car');
     let road = gameArea.getBoundingClientRect();
     moveLines();
-    moveCars();
+    moveCars(car);
     //console.log(road);
     if(player.start) {
         if (keys.ArrowUp && player.y > road.top) {player.y -= player.speed;}
@@ -35,6 +36,8 @@ function playGame () {
         car.style.top = player.y + 'px';
         //score.innerHTML = `[x:${player.x}, y:${player.y}]`;
         window.requestAnimationFrame(playGame);
+        player.score++;
+        score.innerText = `Score: ${player.score}`;
     }
 }
 
@@ -50,9 +53,13 @@ function moveLines () {
     })
 }
 
-function moveCars () {
+function moveCars (car) {
     let enemies = document.querySelectorAll('.enemy');
     enemies.forEach(function(item){
+        if (isCollide(car, item)){
+            console.log('hit');
+            endGame();
+        }
         if (item.y > 1350) {
             item.y = -600;
             item.style.marginLeft = Math.floor(Math.random() * 200) + 'px';
@@ -75,10 +82,31 @@ function pressOff (e) {
     //console.log(keys);
 }
 
+function isCollide (a,b) {
+    let aRect = a.getBoundingClientRect();
+    let bRect = b.getBoundingClientRect();
+    return !(
+        (aRect.bottom < bRect.top) ||
+        (aRect.top > bRect.bottom) ||
+        (aRect.right < bRect.left) ||
+        (aRect.left > bRect.right)
+    )
+}
+
+function endGame(){
+    player.start = false;
+    score.innerText = `Your final score is ${player.score}`;
+    startScreen.classList.remove('hide');
+
+
+}
+
 function start () {
     startScreen.classList.add('hide');
     gameArea.classList.remove('hide');
+    gameArea.innerHTML = '';
     player.start = true;
+    player.score = 0;
     
     for(let x = 0; x < 10; x++) {
         let div = document.createElement('div');
