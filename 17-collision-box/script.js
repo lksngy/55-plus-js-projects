@@ -1,12 +1,15 @@
 let gameAreaEle = document.querySelector('.gameArea');
 let gameArea = gameAreaEle.getBoundingClientRect();
 let score = document.querySelector('.score');
+let position = document.querySelector('.position');
 let box = {};
 let square = [];
 let gamebox = {
     x: Math.floor(gameArea.width/100),
     y: Math.floor(gameArea.height/100)
 }
+
+let test = [1, 3, 4];
 
 document.addEventListener('DOMContentLoaded', build);
 
@@ -28,5 +31,42 @@ function build () {
             counter++;
         }
     }
-    console.log(square);
+    makeActive();
 }
+
+
+function makeActive() {
+    let ran = Math.floor(Math.random()*((gamebox.x * gamebox.y)));
+    if (ran !== 0) {
+        console.log(square[ran].offsetTop);
+        console.log(square[ran].offsetLeft);
+        square[ran].classList.add('active');
+        
+    }
+}
+
+
+document.addEventListener('keydown', function (e) {
+    //console.log(e.keyCode);
+    let player = {
+        speed: 100,
+        score: 0,
+
+    }
+    if(e.keyCode === 37 && box.x > gameArea.left) {
+        box.x -= player.speed;
+        box.style.left = box.x + 'px';
+    } else if (e.keyCode === 38 && box.y > gameArea.top) {
+        box.y -= player.speed;
+        box.style.top = box.y + 'px';
+    } else if (e.keyCode === 39 && box.x < gameArea.right - box.offsetWidth) {
+        box.x += player.speed;
+        box.style.left = box.x + 'px';
+    } else if (e.keyCode === 40 && box.y < gameArea.bottom -box.offsetHeight) {
+        box.y += player.speed;
+        box.style.top = box.y + 'px';
+    } else {
+        console.log('unsuported key');
+    }
+
+})
