@@ -1,4 +1,4 @@
-console.log('Unable to finish this because I don't have functionality to show cookies in text file. I don't have 'live preview' in VS code');
+console.log(`Unable to finish this because I don't have functionality to show cookies in text file. I don't have 'live preview' in VS code`);
 const testName = document.querySelector('.testname');
 const testValue = document.querySelector('.testvalue');
 const setCookie = document.querySelector('.setcookie');
