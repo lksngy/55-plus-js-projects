@@ -16,3 +16,7 @@ button.addEventListener('click', function (){
     let uniqueEmails = [...uniqueFilter];
     filtered.innerText = uniqueEmails.toString();
 })
+
+filtered.addEventListener('click', function () {
+    this.select();
+})
