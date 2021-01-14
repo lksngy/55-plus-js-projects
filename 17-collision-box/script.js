@@ -45,7 +45,6 @@ function makeActive() {
     }
 }
 
-
 document.addEventListener('keydown', function (e) {
     //console.log(e.keyCode);
     let player = {
