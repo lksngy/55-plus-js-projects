@@ -8,8 +8,8 @@ button.addEventListener('click', function(){
 
 let url;
 // fucking not working :/
-const feedID = '2PACX-1vR-iHOQPLgOehU_ZEKOvPlg7x';
-const feed = 'https://spreadsheets.google.com/feeds/cells/' + feedID + '/1/public/full?alt=json';
+const feedID = "2PACX-1vQRLFBsqHmbB-jQWgDL6rXqOPK0T8k0TOMC1gVi3fThlW9M6TIjeNC8_JRf4pqBjULWPWaM_FsHWccT";
+const feed = "https://spreadsheets.google.com/feeds/cells/" + feedID + "/public/full?alt=json";
 console.log(feed);
 let myData = [
     ['Title', 'Content'],
