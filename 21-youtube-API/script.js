@@ -53,8 +53,9 @@ async function ySearch () {
 
 button.addEventListener('click', function(){
     output.innerHTML = '';
-    let text = input.value;
-    apiUrl = 'https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&key=' + api + '&q=' + text;
+    let searchTerm = input.value;
+    searchTerm = encodeURIComponent(searchTerm); //some APIs need spaces to be encoded
+    apiUrl = 'https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&key=' + api + '&q=' + searchTerm;
     console.log(apiUrl);
     ySearch();
     })
